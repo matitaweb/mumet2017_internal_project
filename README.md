@@ -1,9 +1,9 @@
 # RE-IDENTIFICATION OF PEOPLE IN OUTDOOR SURVEILLANCE VIDEOS (#mumet2017_internal_project)
   
->" The system is capable of reidentify a given (query) person. 
->The process annotate videos detecting pedestrian using a simple HOG detector and than with a "Siamese Network" try to reidentify people by a similarity ranking. "  
+>"The system is capable of reidentify a given (query) person. 
+>The process annotate videos detecting pedestrian using a simple HOG detector and than with a "Siamese Network" try to reidentify people by a similarity ranking."  
   
-  
+ 
 
 
 ### FIRST SOME RESULTS...
@@ -29,13 +29,22 @@ Adding to the video the reidentificatoin info.
 
 
 ### PEDESTRIAN DETECTION
+We take a simple HOG detection that allow to crop a fram removing removing most of the background and reducing the image size passed at next phase.
+For every detected pedestrian we produce a image containing the person and some annotation (eg. boundig box position and size) in a csv format.
+
+[![N|Solid](https://matitaweb.github.io/mumet2017_internal_project/img/detection_phase.png)](https://matitaweb.github.io/mumet2017_internal_project/index.html#/architecture_main)
+
 Built-in feature used:
-Python 3, OpenCV 3.2, Panda 0.20
+```sh
+Python 3
+OpenCV 3.2
+Panda 0.20
+```
 
 ###### STRENGHT
 1. Easy to implement/deploy.
 2. No training required.
-3. It work also if camera is moving.
+3. It work also with moving camera.
 
 ###### WEAKNESS
 1. Not always reliable with false positive.
@@ -44,7 +53,7 @@ Python 3, OpenCV 3.2, Panda 0.20
 4. Not so Fast, speedup requires a trade of with accuracy. 
 5. Requires some tuning for every kind of video.
 
-[![N|Solid](https://matitaweb.github.io/mumet2017_internal_project/img/detection_phase.png)](https://matitaweb.github.io/mumet2017_internal_project/index.html#/architecture_main)
+
 
 ###### Hog detection part...
 in file: "detect_pedestrian.py", using OpenCV builtin feature.
@@ -73,7 +82,12 @@ detect_info_df.to_csv(output_info_path + '/detect_info.csv')
 
 
 ### RE-IDENTIFICATION PHASE
-A trained network to compare people similarity
+To reidentify pedestian we compare every croped frame produced in previous detection 
+phase with a set of given image that contains a set of people to reidentify.
+So every crop image is compared by a trained convolutional neural network with all possible people that have an a identity 
+and for every identity we save a similarity percentage. 
+An than we assign 
+
 
 ###### STRENGTHS
 1. No tuning required.
@@ -88,11 +102,27 @@ A trained network to compare people similarity
 [![N|Solid](https://matitaweb.github.io/mumet2017_internal_project/img/reid_phase.png)](https://matitaweb.github.io/mumet2017_internal_project/index.html#/architecture_reideintification)
 
 ### SIAMESE NETWORK
+A trained network to compare people similarity, the idea came from the this paper:
+
+https://www.cv-foundation.org/openaccess/content_cvpr_2015/papers/Ahmed_An_Improved_Deep_2015_CVPR_paper.pdf
 
 [![N|Solid](https://matitaweb.github.io/mumet2017_internal_project/img/an_siamese_net_reid.jpg)](https://matitaweb.github.io/mumet2017_internal_project/index.html#/architecture_siam_net)
 
+The Architecture: Paired images are passed through the network. While initial layers extract features in the
+two views individually, higher layers compute relationships between them. The number and size of convolutional filters that
+must be learned are shown. For example, in the first tied convolution layer, 5 x 5 x 3 -> 20 indicates that there are 20
+convolutional features in the layer, each with a kernel size of 5 x 5 x 3. There are 2,308,147 learnable parameters in the
+whole network.
+
 ###### Tied Convolution
-  
+The first two layers convolution layers, which we use to compute
+higher-order features on each input image separately. 
+In order for the features to be comparable across the two images
+in later layers, our first two layers perform tied convolution,
+in which weights are shared across the two views, to ensure
+that both views use the same filters to compute features. 
+We pass as input pairs of RGB images of size 60 x 160 -> 3 through 20 learned filters of size 5 x 5 -> 3. 
+The resulting feature maps are passed through a max-pooling kernel that halves
   
 ###### Cross-Input Neighborhood Differences
   
@@ -103,6 +133,10 @@ A trained network to compare people similarity
 
 ###### Higher-Order Relationships
 
+
+Some code to take in account
+
+https://github.com/Ning-Ding/Implementation-CVPR2015-CNN-for-ReID
 
 ### HOW I TRAINIED THE SIAMESE NETWORK
 [![N|Solid](https://matitaweb.github.io/mumet2017_internal_project/img/dataset_market-1501.jpg)](https://matitaweb.github.io/mumet2017_internal_project/index.html#/architecture_siam_net_train)
@@ -127,11 +161,12 @@ Trained on a laptop:
 ### TESTING
 
 two types:
-- test detection: 
+- **Test detection**: 
 for every frame put in relation detected boundig box with boundig box annotated manually
 
-- test reidentification 
+- **test reidentification**:
 verify if identity is correct for every detected pedestian in pevious phase with annotated ID.
+
 
 ###### TUD MULTIVIEW PEDESTRIANS
 
@@ -159,17 +194,18 @@ With a threshold like 0.7 the accuracy grow a little bit (0.69 circa)
 My dataset at unimore available in dropbox
 Data acquired from the Axis camera mounted at UNIMORE, with video, people and situation semi-constrained and controlled, usually there are 2 people video are acquire both in static and moving camera in outdoor in high brightness conditions. Videos are created with the msmpeg4v2 codec (from ffmpeg)
 
-- Accuracy detection: 0,619479049
-Tot annotated detection 883 smpl.
-Some relevanti info in CONFUSION MATRIX
-TP (correct detection)	547 smpl.
-FN (missing detection)	336 smpl.
-FP (ghost detection)	0 smpl.
+**Accuracy detection**: 0,619479049<br/>
+> Tot annotated detection 883 smpl.<br/>
+> Some relevanti info in CONFUSION MATRIX<br/>
+> TP (correct detection)	547 smpl.<br/>
+> FN (missing detection)	336 smpl.<br/>
+> FP (ghost detection)	0 smpl.<br/>
 
-- Accuracy reidentification:
-Tot. reidentification done: 543
-True match: 0.732965 (398 smpl.)
-False match: 0.267035 (145 smpl.)
+**Accuracy reidentification**:<br/>
+> Tot. reidentification done: 543 <br/>
+> True match: 0.732965 (398 smpl.) <br/>
+> False match: 0.267035 (145 smpl.)
+
 The video contains only people to reidentify.
 
 ### CONCLUSION
@@ -177,7 +213,11 @@ The video contains only people to reidentify.
 2. Not suitable for realtime application, but good approach for batch services
 3. Training performaces can be improved
 
-# FUTURE WORKS
+
+
+### FUTURE WORKS
 1. Create a service API to make project available to third party
 2. Introduct a classificator that distiguish from background and not background to eliminate false positive
 3. Porting siamese net in CAFFE and THEANO to compare speed and accuracy performances in training and prediction
+4. Enhance reideinfication removing double id in the same frame
+5. 
