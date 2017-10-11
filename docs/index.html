@@ -70,29 +70,7 @@
 						</p>
 					</div>
 					<iframe height="500px" width="800px" src="https://www.youtube.com/embed/RipYW9D15fs" frameborder="0" allowfullscreen></iframe>
-					
-					<!--
-					<div class="col_left_1_3">
-						<table>
-							<tbody>
-								<tr>
-									<td><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiI7ThbOePoDwDOXQ0zgREiC35Q-0sDNeZLCzWIEW_pvASTvcS" width="50px" ></img></td>
-								</tr>
-								<tr>
-									<td><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiI7ThbOePoDwDOXQ0zgREiC35Q-0sDNeZLCzWIEW_pvASTvcS" width="50px" ></img></td>
-								</tr>
-								<tr>
-									<td><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiI7ThbOePoDwDOXQ0zgREiC35Q-0sDNeZLCzWIEW_pvASTvcS" width="50px" ></img></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					
-					<div class="col_right_2_3">
-						<iframe width="100%" height="400" src="https://www.youtube.com/embed/jTPnILGpVDM" frameborder="0" allowfullscreen></iframe>
-					</div>
-					-->
-					
+
 				</section>
 
 				<section id="assumptions">
@@ -138,7 +116,7 @@
 									<td>
 										<p>
 											<b>Detection phase</b><br/>
-											Simple HOG detection producing croped people image and annotation.
+											Simple HOG detection producing croped people image and frame annotation.
 										</p>
 									</td>
 								</tr>
@@ -146,8 +124,8 @@
 									<td>
 										<p>
 											<b>ReID phase</b><br/>
-											A Trained Siamese Net. try reidentify pedestrian searching in a DB, 
-											the output is a similarity rank for everty peope to reidentify.
+											A Trained Siamese Network try to reidentify pedestrian searching in a identity DB.<br/>
+											The output is a similarity rank for everty peope to reidentify.
 										</p>
 									</td>
 								</tr>
@@ -155,7 +133,7 @@
 									<td>
 										<p>
 											<b>Video annotation phase</b><br/>
-											Adding to the video the reidentificatoin info.
+											Adding to the video reidentificatoin info.
 										</p>
 									</td>
 								</tr>
@@ -191,7 +169,6 @@
 								2. Missings when people figure is not complete.<br/>
 								3. Requires tuning for every scenarios.<br/>
 								4. Not so Fast, speedup requires a trade of with accuracy. <br/>
-								5. Requires some tuning for every kind of video.<br/>
 							</p>
 						</div>
 						
@@ -320,7 +297,8 @@ detect_info_df.to_csv(output_info_path + '/detect_info.csv')
 						<hr style="clear:both"/>
 						<p style= "font-size: x-large;">
 						<small><a href="https://www.cv-foundation.org/openaccess/content_cvpr_2015/papers/Ahmed_An_Improved_Deep_2015_CVPR_paper.pdf">www.cv-foundation.org/openaccess/content_cvpr_2015/papers/Ahmed_An_Improved_Deep_2015_CVPR_paper.pdf</a><br/>
-						<a href="https://github.com/Ning-Ding/Implementation-CVPR2015-CNN-for-ReID">github.com/Ning-Ding/Implementation-CVPR2015-CNN-for-ReID</a>
+						<a href="https://github.com/Ning-Ding/Implementation-CVPR2015-CNN-for-ReID">github.com/Ning-Ding/Implementation-CVPR2015-CNN-for-ReID</a><br/>
+						ALT + CLICK -> ZOOM
 						</small>
 						</p>
 					</section>
