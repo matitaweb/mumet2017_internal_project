@@ -111,7 +111,7 @@ and for every identity we save a similarity percentage.
 1. The CNN Requires a lot of training with many example to be effective.
 2. The input images must have a precide size, so we need to resize detected pedestrian before the reideinfication phase.
 3. The CNN is not trained to recognize background, so it may try to recognize every bounding box detected in previous phase also if there are non predestrian in the image.
-4. The Siamese Network assume that all people detected in previos phase are in identity database, if in one frame some people are missing the CNN wrong.
+4. The Siamese Network assume that all people detected in previous phase are in identity database, if in one frame some people are missing the CNN wrong.
 
 [![N|Solid](https://matitaweb.github.io/mumet2017_internal_project/img/reid_phase.png)](https://matitaweb.github.io/mumet2017_internal_project/index.html#/architecture_reideintification)
 
@@ -153,7 +153,7 @@ This yeds 50 neighborhood difference maps (25 in one wqy, 25 in reverse way, eac
 We pass these neighborhood difference maps through a rectified linear unit (ReLu) to add non linearity to the network.
 
 
-[![N|Solid](https://matitaweb.github.io/mumet2017_internal_project/img/cross-input-neighborhood-diff.png)]
+[![N|Solid](https://matitaweb.github.io/mumet2017_internal_project/img/cross-input-neighborhood-diff.png)](https://matitaweb.github.io/mumet2017_internal_project/index.html#/architecture_siam_net_detail)
 
 
 ###### Patch Summary Features
@@ -171,7 +171,7 @@ by computing neighborhood difference maps and then obtaining a highlevel local r
 In the next layer, we learn spatial relationships across neighborhood differences. <br/>
 This is done by convolving L with 25 filters of size 3 x 3 x 25 with a stride of 1. <br/>
 The resultant features are passed through a max pooling kernel to reduce the height and width by a factor of 2. <br/>
-This yields 25 feature maps of size 5 x 18.
+This yields 25 feature maps of size 5 x 18.<br/>
 
 ###### Higher-Order Relationships
 It is a fully connected layer after M and M'.<br/>
@@ -181,8 +181,7 @@ This captures higher-order relationships by:
 
 The resultant feature vector of size 500 is passed through a ReLu nonlinearity.<br/>
 These 500 outputs are then passed to another fully connected layer containing 2 softmax units,
-which represent the probability that the two images in the
-pair are of the same person or different people.
+which represent the probability that the two images in the pair are of the same person or different people.
 
 <br/>
 Some code to take in account
@@ -191,7 +190,7 @@ https://github.com/Ning-Ding/Implementation-CVPR2015-CNN-for-ReID
 
 ###### Visualization of Features
 
-[![N|Solid](https://preview.c9users.io/matitaweb/mumet2017_internal_project_slide/mumet2017_internal_project/docs/img/siamese_net_visualiz.png)](https://matitaweb.github.io/mumet2017_internal_project/index.html#/architecture_siam_net_detail)
+[![N|Solid](https://matitaweb.github.io/mumet2017_internal_project/img/siamese_net_visualiz.png)](https://matitaweb.github.io/mumet2017_internal_project/index.html#/architecture_siam_net_detail)
 
 Visualization of features learned by our architecture. Initial layers learn image features that are important to
 distinguish between a positive and a negative pair. Deeper layers learn relationships across the two views so that classification
@@ -205,7 +204,7 @@ Training data consist of image pairs labeled as positive (same) and negative (di
 The optimization objective is average loss over all pairs in the data set. <br/>
 As the data set can be quite large, in practice we use a stochastic approximation of this objective. <br/>
 Training data are randomly divided into mini-batches.<br/>
-The model performs forward propagation on the current mini-batch and computes the output and loss. 
+The model performs forward propagation on the current mini-batch and computes the output and loss. <br/>
 Backpropagation is then used to compute the gradients on this batch, and network weights are updated. <br/>
 In training phase is performed a **stochastic gradient descent** to perform weight updates. 
 
@@ -219,6 +218,40 @@ http://www.liangzheng.org/Project/project_reid.html
 - Contains 32,668 annotated bounding boxes of 1,501 identities.
 - Annotated identity is present in at least two cameras.
 
+###### Training code is in model_for_market1501.py
+
+```python
+if __name__ == '__main__':
+    # define model
+    model = model_def(weight_decay=0.0005)
+    
+    # Before training configure learning process adding an optimizer (SGD), a loss function and a metrics (accuracy) 
+    model = compiler_def(model)
+    
+    #training model
+    train(model, batch_size=200)
+    
+    # training produce a .h5 file containing weight to reload in predicion phase
+```
+
+###### Make prediction and add labeled bounding box to the video with run.py
+
+```python
+# save data in csv
+if __name__ == '__main__':
+    # reading detection annotatins (previous phase...)
+    detect_info_df = pd.read_csv('video_result/'+video_name+'/frame_detection' + '/frame_detection_annotations.csv')
+    
+    #define the people to reidentify dictionary 
+    dictionary_test_path = ['video_data/ex_01_dict/andrea.jpg', 'video_data/ex_01_dict/sara.jpg'] 
+    
+    df_annotated = add_reid_data_annotation(model, detect_info_df, dictionary_test_path, 'video_result/'+video_name+'/video_builder')
+    
+    # rebuilding video with 
+    call_build_video(video_name, df_annotated)
+```
+
+
 ###### TRAINING AND TEST PERFORMACES
 optimization method: **Stochastic gradient descent**<br/>
 epoch train: 5000 <br/>
@@ -227,7 +260,7 @@ accuracy: 0.8741 <br/>
 loss: 0.3382 <br/> 
 training time: >48h <br/>
 
-Trained on a laptop:
+Trained on a laptop:<br/>
 2.5GHz Dual-core Intel i5, 8GB of 1600MHz DDR3 SDRAM, Intel HD Graphics 4000 
 
 > UBUNTU 16.04 <br/>
@@ -238,10 +271,10 @@ Trained on a laptop:
 ### TESTING
 
 Two types:
-- **Test detection**: 
-for every frame put in relation detected boundig box with boundig box annotated manually
+- **Test detection**: <br/>
+For every frame put in relation detected boundig box with boundig box annotated manually.
 
-- **test reidentification**:
+- **test reidentification**: <br/>
 verify if identity is correct for every detected pedestian in pevious phase with annotated ID.
 
 
@@ -251,24 +284,24 @@ http://www.d2.mpi-inf.mpg.de/node/428<br/>
 The TUD Pedestrians dataset from Micha Andriluka, Stefan Roth and Bernt Schiele [AndrilukaCVPR2008] consists of 250 images with 311 fully visible people with significant variation in clothing and articulation. The dataset has 3 video, The dataset "TUD Multiview Pedestrians" was used in the project to evaluate single-frame people detection.
 Videos are created with the msmpeg4v2 codec (from ffmpeg)
 
-- Accuracy detection: 0,634948097
-Tot annotated detection 1157 smpl.
-Some relevanti info in CONFUSION MATRIX
-TP (correct detection)	734 smpl.
-FN (missing detection)	422 smpl.
-FP (ghost detection)	0 smpl.
+**Accuracy detection**: 0,634948097<br/>
+> Tot annotated detection 1157 smpl.<br/>
+> Some relevanti info in CONFUSION MATRIX<br/>
+> TP (correct detection)	734 smpl.<br/>
+> FN (missing detection)	422 smpl.<br/>
+> FP (ghost detection)	0 smpl.
 
-- Accuracy reidentification:
-Tot. reidentification done: 728
-true match: 0.510989 (372 smpl.)
-impossible match: 0.337912 (246 smpl.)**
-false match: 0.151099 (110 smpl.)
-** people to reidentify are less than people in videos
-if we don't care impossible match accuracy is 0.771784
-With a threshold like 0.7 the accuracy grow a little bit (0.69 circa)
+**Accuracy reidentification**:<br/>
+> Tot. reidentification done: 728<br/>
+> True match: 0.510989 (372 smpl.)<br/>
+> impossible match: 0.337912 (246 smpl.)**<br/>
+> False match: 0.151099 (110 smpl.)<br/><br/>
+> ** people to reidentify are less than people in videos<br/>
+> if we don't care impossible match accuracy is 0.771784<br/>
+> With a threshold like 0.7 the accuracy grow a little bit (0.69 circa)
 
 ###### > MY DATASET AT UNIMORE <
-My dataset at unimore available in dropbox
+My dataset at unimore available in dropbox https://www.dropbox.com/sh/9njwblsl12ihzou/AAC0qW74RN17IP456rTIs7o0a?dl=0
 Data acquired from the Axis camera mounted at UNIMORE, with video, people and situation semi-constrained and controlled, usually there are 2 people video are acquire both in static and moving camera in outdoor in high brightness conditions. Videos are created with the msmpeg4v2 codec (from ffmpeg)
 
 **Accuracy detection**: 0,619479049<br/>
@@ -297,4 +330,4 @@ The video contains only people to reidentify.
 2. Introduct a classificator that distiguish from background and not background to eliminate false positive
 3. Porting siamese net in CAFFE and THEANO to compare speed and accuracy performances in training and prediction
 4. Enhance reideinfication removing double id in the same frame
-5. 
+
