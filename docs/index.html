@@ -52,7 +52,7 @@
 						&ldquo;
 						The system is capable of reidentify a given (query) person. <br/>
 						The process annotate videos detecting pedestrian using a simple HOG detector 
-						and than with a "Siamese Network" try to reidentify people by a similarity ranking.
+						and than with a "Siamese Network" try to reidentify people by similarity ranking.
 						 &rdquo;
 					</blockquote>
 					<p style= "font-size: x-large;">
@@ -322,7 +322,7 @@ performance is maximized.</p>
 								- Collected in front of a supermarket in Tsinghua University. <br/>
 								- A total of six cameras including 5 high-resolution cameras, and one low-resolution camera.<br/>
 								- Contains 32,668 annotated bounding boxes of 1,501 identities.<br/>
-								- Annotated identity is present in at least two cameras,
+								- Annotated identity is present in at least two cameras.
 								</p>
 							</div>
 							
@@ -330,8 +330,8 @@ performance is maximized.</p>
 								<p style="font-size: medium;">
 								<B>TRAINING AND TEST PERFORMACES</B><br/><br/>
 								optimization method: Stochastic gradient descent<br/>
-								epoch train: 5000 | batch size: 200 imgs<br> 
-								accuracy: 0.8741 | loss: 0.3382 | 2/3 days<br/><br/>
+								epoch train: 5000 | batch size: 64 imgs<br> 
+								accuracy: 0.8741 | loss: 0.3382 | time: ~ 48h<br/><br/>
 								Laptop:<br/>
 								2.5GHz Dual-core Intel i5, 8GB of 1600MHz DDR3 SDRAM, Intel HD Graphics 4000
 								<br/>
@@ -387,30 +387,6 @@ performance is maximized.</p>
 						</p>
 					</section>
 					
-					<!--
-					<section id="architecture_siam_net_impl">
-						<h6>Implementation details</h6>
-						<div>
-						<div class="col_left_1_2" style="font-size: large;">
-							<p>UBUNTU 16.04</p>
-							<p>PYTHON 3.6.1</p>
-							<p>KERAS</p>
-							<p>TENSORFLOW</p>
-						</div>
-						
-						<div class="col_right_2_2">
-							<img src="img/model_keras_tesorflow.png" width="250px"></img>
-						</div>
-						</div>
-						<hr style="clear:both"/>
-						<p style= "font-size: x-large;">
-						<small><a href="https://www.cv-foundation.org/openaccess/content_cvpr_2015/papers/Ahmed_An_Improved_Deep_2015_CVPR_paper.pdf">www.cv-foundation.org/openaccess/content_cvpr_2015/papers/Ahmed_An_Improved_Deep_2015_CVPR_paper.pdf</a><br/>
-						<a href="https://github.com/Ning-Ding/Implementation-CVPR2015-CNN-for-ReID">github.com/Ning-Ding/Implementation-CVPR2015-CNN-for-ReID</a>
-						</small>
-						</p>
-					</section>
-					-->
-				
 				</section>
 
 				<section id="testing">
@@ -420,15 +396,14 @@ performance is maximized.</p>
 						<div>
 						<div class="col_left_1_3" style="font-size: large;">
 							
-							<p>Two types</p>
+							<h6>Test detection</h6>
 							<p>
-								<b>- test detection:  </b><br/>
-								<img src="img/accuracy_dete.JPG" width="250px"></img><br/>
+								<img src="img/accuracy_dete.JPG" width="240px"></img><br/>
 								for every frame put in relation <i>detected boundig box</i> with <i>boundig box annotated</i> manually
 							</p>
+							<h6>Test reidentification</h6>
 							<p>
-								<b>- test reidentification </b><br/>
-								<img src="img/accuracy_reid.JPG" width="250px"></img><br/>
+								<img src="img/accuracy_reid.JPG" width="240px"></img><br/>
 								verify if identity is correct for every detected pedestian in pevious phase with annotated ID.
 							</p>
 							
@@ -455,7 +430,7 @@ performance is maximized.</p>
 										<img src="img/PETS-S2L1.jpg" width="100px" style="float:left; margin:5px"></img>
 										<p style="margin-top: 5px;"><B>PETS 2009</B><br/>
 										<a href="http://www.cvg.reading.ac.uk/PETS2009/">www.cvg.reading.ac.uk/PETS2009</a><br/>
-										crowd situation, video in outdoor and high brightness conditions.
+										Crowd situation, video in outdoor and high brightness conditions.
 										</p>
 								</tr>
 								
@@ -471,7 +446,7 @@ performance is maximized.</p>
 								<tr>
 									<td>
 										<img src="img/own_video_frame.jpg" width="100px" style="float:left; margin:5px"></img>
-										<p style="margin-top: 5px;"><B>MY DATASET AT UNIMORE</B><br/>
+										<p style="margin-top: 5px;"><B>MY DATASET (@ UNIMORE)</B><br/>
 										<a href="https://www.dropbox.com/sh/9njwblsl12ihzou/AAC0qW74RN17IP456rTIs7o0a?dl=0">My dropbox</a><br/>
 										2 people both in static and moving camera in outdoor, high brightness conditions. 
 										</p>
@@ -497,16 +472,16 @@ performance is maximized.</p>
 						<h6>TUD Multiview Pedestrians</h6>
 						<div>
 						<div class="col_left_1_2" style="font-size: large;">
-							<img src="img/cvpr10_tud_stadtmitte_000.jpg" width="400px" style=" margin:10px"></img>
+							<img src="img/cvpr10_tud_stadtmitte_000.jpg" width="380px" style=" margin:10px"></img>
 							
 						</div>
-						<div class="col_right_1_2" style="font-size: large;">
+						<div class="col_right_1_2" style="font-size: large;text-align:left;">
 							<p>
 								<a href="https://www.d2.mpi-inf.mpg.de/node/428">www.d2.mpi-inf.mpg.de/node/428</a><br/>
-								The TUD Pedestrians dataset from Micha Andriluka, Stefan Roth and Bernt Schiele [AndrilukaCVPR2008] consists of 250 images with 311 fully visible people with significant variation in clothing and articulation. 
-								The dataset has 3 video, 
-								The dataset "TUD Multiview Pedestrians" was used in the project to evaluate single-frame people detection.<br/>
-								Videos are created with the msmpeg4v2 codec (from ffmpeg) 
+								The TUD Pedestrians dataset from Micha Andriluka, Stefan Roth and Bernt Schiele [AndrilukaCVPR2008].<br/>
+								It consists of 250 images with 311 fully visible people with significant variation in clothing and articulation.<br/>
+								In this dataset dataset there are  3 video.
+								Usually it was used in the project to evaluate single-frame people detection.<br/>
 							</p>
 						</div>
 						</div>
@@ -517,26 +492,24 @@ performance is maximized.</p>
 								<B>Accuracy detection: 0,634948097</B><br/>
 								<br/>
 								Tot annotated detection 1157 smpl.<br/><br/>
-								Some relevanti info in CONFUSION MATRIX<br/>
-								TP (correct detection)	734 smpl.<br/>
-								FN (missing detection)	422 smpl.<br/>
-								FP (ghost detection)	0 smpl.<br/>
+								Some relevanti info in **CONFUSION MATRIX**<br/>
+								TP (correct detection):	734 smpl.<br/>
+								FN (missing detection):	422 smpl.<br/>
+								FP (ghost detection):	0 smpl.<br/>
 							</p>
 						</div>
-						<div class="col_right_1_2" style="font-size: large;">
+						<div class="col_right_1_2" style="font-size: large;text-align:left;">
 							<p style="margin-top:5px">
-								<B>Accuracy reidentification:</B><br/>
+								<B>Accuracy reidentification:</B><br/><br/>
 								
 								Tot. reidentification done: 728<br/>
 								true match: 0.510989 (372 smpl.)<br/> 
 								impossible match: 0.337912 (246 smpl.)**<br/> 
-								false match:  0.151099 (110 smpl.)<br/> 
+								false match:  0.151099 (110 smpl.)<br/> <br/>
 								
 								** people to reidentify are less than people in videos<br/>
 								if we don't care impossible match accuracy is 0.771784<br/>
-								With a threshold like 0.7  the accuracy grow a little bit (0.69 circa)
-								<!--mean_nones_sim: 0.946504, mean_nones_sim_max: 1.000000, mean_nones_sim_min: 0.100000-->
-								
+								With a threshold like 0.7  the accuracy grow little (~0.69)
 							</p>
 						</div>
 						</div>
@@ -544,12 +517,12 @@ performance is maximized.</p>
 					</section>
 					
 					<section id="testing_overview_02">
-						<h6>> MY DATASET AT UNIMORE <</h6>
+						<h6>> MY DATASET (@ UNIMORE) <</h6>
 						<div>
 						<div class="col_left_1_2" style="font-size: large;">
 							<img src="img/own_video_frame.jpg" width="400px" style="float:left; margin:5px"></img>
 						</div>
-						<div class="col_right_1_2" style="font-size: large;">
+						<div class="col_right_1_2" style="font-size: large;text-align:left;">
 							<p>
 								<a href="https://www.dropbox.com/sh/9njwblsl12ihzou/AAC0qW74RN17IP456rTIs7o0a?dl=0">My dataset at unimore available in dropbox</a><br/>
 								Data acquired from the Axis camera mounted at UNIMORE, with video, 
@@ -565,15 +538,15 @@ performance is maximized.</p>
 								<B>Accuracy detection: 0,619479049</B><br/>
 								<br/>
 								Tot annotated detection 883 smpl.<br/><br/>
-								Some relevanti info in CONFUSION MATRIX<br/>
-								TP (correct detection)	547 smpl.<br/>
-								FN (missing detection)	336 smpl.<br/>
-								FP (ghost detection)	0 smpl.<br/>
+								Some relevanti info in **CONFUSION MATRIX**<br/>
+								TP (correct detection):	547 smpl.<br/>
+								FN (missing detection):	336 smpl.<br/>
+								FP (ghost detection):	0 smpl.<br/>
 							</p>
 						</div>
-						<div class="col_right_1_2" style="font-size: large;">
+						<div class="col_right_1_2" style="font-size: large;text-align:left;">
 							<p style="margin-top:5px">
-								<B>Accuracy reidentification:</B><br/><br>
+								<B>Accuracy reidentification:</B><br/><br/>
 							
 								Tot. reidentification done: 543<br>
 								True match: 0.732965 (398 smpl.)<br>
