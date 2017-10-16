@@ -116,7 +116,7 @@
 									<td>
 										<p>
 											<b>Detection phase</b><br/>
-											Simple HOG detection producing croped people image and frame annotation.
+											Simple HOG detection producing cropped people image and frame annotation.
 										</p>
 									</td>
 								</tr>
@@ -125,7 +125,7 @@
 										<p>
 											<b>ReID phase</b><br/>
 											A Trained Siamese Network try to reidentify pedestrian searching in a identity DB.<br/>
-											The output is a similarity rank for everty peope to reidentify.
+											The output is a similarity rank for every person to reidentify.
 										</p>
 									</td>
 								</tr>
@@ -157,7 +157,7 @@
 						<div class="col_left_2_3">
 							<p style="font-size: large;"><B>Built-in feature used:</B></p>
 							<p style="font-size: small;"><span style="font-style: italic;font-family: monospace;">Python 3, OpenCV 3.2, Panda 0.20</span></p>
-							<h6>Strenght</h6>
+							<h6>Strenghts</h6>
 							<p style="font-size:large">
 								1. Easy to implement/deploy.<br/>
 								2. No training required.<br/>
@@ -166,7 +166,7 @@
 							<h6>Weakness</h6>
 							<p style="font-size:large">
 								1. Not always reliable with false positive.<br/>
-								2. Missings when people figure is not complete.<br/>
+								2. Fasle negative when people figure is not complete.<br/>
 								3. Requires tuning for every scenarios.<br/>
 								4. Not so Fast, speedup requires a trade of with accuracy. <br/>
 							</p>
@@ -258,7 +258,7 @@ detect_info_df.to_csv(output_info_path + '/detect_info.csv')
 							<h6>Weakness</h6>
 							<p style="font-size:large">
 								1. Requires a lot of training with many example<br/>
-								2. The input images have a precide size, so we need to resize detected pedestrian.<br/>
+								2. The input images have a precise size, so we need to resize detected pedestrian.<br/>
 								3. Is not trained to recognize background, so it try to recognize every bounding box detected in previous phase.<br/>
 								4. The net assume that all people detected are in the people to recognize set.<br/>
 								<br/>
