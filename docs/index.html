@@ -166,7 +166,7 @@
 							<h6>Weakness</h6>
 							<p style="font-size:large">
 								1. Not always reliable with false positive.<br/>
-								2. Fasle negative when people figure is not complete.<br/>
+								2. False negative when people figure is not complete.<br/>
 								3. Requires tuning for every scenarios.<br/>
 								4. Not so Fast, speedup requires a trade of with accuracy. <br/>
 							</p>
@@ -178,7 +178,7 @@
 						</div>
 						
 						<hr style="clear:both">
-						<p style= "font-size: x-large;">
+						<p style= "font-size: large;">
 						<small><a href="https://web.stanford.edu/class/cs231a/prev_projects_2016/pedestrian-detection-tracking.pdf">web.stanford.edu/class/cs231a/prev_projects_2016/pedestrian-detection-tracking.pdf</a><br/>
 						<a href="http://www.pyimagesearch.com/2015/11/16/hog-detectmultiscale-parameters-explained/">hog-detectmultiscale-parameters-explained</a><br/>
 						<a href="https://www.pyimagesearch.com/2014/11/10/histogram-oriented-gradients-object-detection/">histogram-oriented-gradients-object-detection</a>
@@ -469,6 +469,48 @@ performance is maximized.</p>
 					</section>
 					
 					<section id="testing_overview_01">
+						<h6>> MY DATASET (@ UNIMORE) <</h6>
+						<div>
+						<div class="col_left_1_2" style="font-size: large;">
+							<img src="img/own_video_frame.jpg" width="400px" style="float:left; margin:5px"></img>
+						</div>
+						<div class="col_right_1_2" style="font-size: large;text-align:left;">
+							<p>
+								<a href="https://www.dropbox.com/sh/9njwblsl12ihzou/AAC0qW74RN17IP456rTIs7o0a?dl=0">My dataset at unimore available in dropbox</a><br/>
+								Data acquired from the Axis camera mounted at UNIMORE, with video, 
+								people and situation semi-constrained and controlled, usually there are 2 people 
+								video are acquire both in static and moving camera in outdoor in high brightness conditions. 
+								Videos are created with the msmpeg4v2 codec (from ffmpeg) 
+							</p>
+						</div>
+						</div>
+						<div style="clear:both;margin-top:5px" >
+						<div class="col_left_1_2" style="font-size: large;">
+							<p style="margin-top:5px">
+								<B>Accuracy detection: 0,619479049</B><br/>
+								<br/>
+								Tot annotated detection 883 smpl.<br/><br/>
+								Some relevanti info in **CONFUSION MATRIX**<br/>
+								TP (correct detection):	547 smpl.<br/>
+								FN (missing detection):	336 smpl.<br/>
+								FP (ghost detection):	0 smpl.<br/>
+							</p>
+						</div>
+						<div class="col_right_1_2" style="font-size: large;text-align:left;">
+							<p style="margin-top:5px">
+								<B>Accuracy reidentification:</B><br/><br/>
+							
+								Tot. reidentification done: 543<br>
+								True match: 0.732965 (398 smpl.)<br>
+								False match: 0.267035 (145 smpl.)<br><br>
+
+								The video contains only people to reidentify.
+							</p>
+						</div>
+						</div>
+					</section>
+					
+					<section id="testing_overview_02">
 						<h6>TUD Multiview Pedestrians</h6>
 						<div>
 						<div class="col_left_1_2" style="font-size: large;">
@@ -516,47 +558,6 @@ performance is maximized.</p>
 						
 					</section>
 					
-					<section id="testing_overview_02">
-						<h6>> MY DATASET (@ UNIMORE) <</h6>
-						<div>
-						<div class="col_left_1_2" style="font-size: large;">
-							<img src="img/own_video_frame.jpg" width="400px" style="float:left; margin:5px"></img>
-						</div>
-						<div class="col_right_1_2" style="font-size: large;text-align:left;">
-							<p>
-								<a href="https://www.dropbox.com/sh/9njwblsl12ihzou/AAC0qW74RN17IP456rTIs7o0a?dl=0">My dataset at unimore available in dropbox</a><br/>
-								Data acquired from the Axis camera mounted at UNIMORE, with video, 
-								people and situation semi-constrained and controlled, usually there are 2 people 
-								video are acquire both in static and moving camera in outdoor in high brightness conditions. 
-								Videos are created with the msmpeg4v2 codec (from ffmpeg) 
-							</p>
-						</div>
-						</div>
-						<div style="clear:both;margin-top:5px" >
-						<div class="col_left_1_2" style="font-size: large;">
-							<p style="margin-top:5px">
-								<B>Accuracy detection: 0,619479049</B><br/>
-								<br/>
-								Tot annotated detection 883 smpl.<br/><br/>
-								Some relevanti info in **CONFUSION MATRIX**<br/>
-								TP (correct detection):	547 smpl.<br/>
-								FN (missing detection):	336 smpl.<br/>
-								FP (ghost detection):	0 smpl.<br/>
-							</p>
-						</div>
-						<div class="col_right_1_2" style="font-size: large;text-align:left;">
-							<p style="margin-top:5px">
-								<B>Accuracy reidentification:</B><br/><br/>
-							
-								Tot. reidentification done: 543<br>
-								True match: 0.732965 (398 smpl.)<br>
-								False match: 0.267035 (145 smpl.)<br><br>
-
-								The video contains only people to reidentify.
-							</p>
-						</div>
-						</div>
-					</section>
 					
 				</section>
 
